@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Button from 'react-bootstrap/Button';
+import { getFiles } from './files';
 
 
 function App() {
@@ -15,12 +16,11 @@ function App() {
         </p>
         <Button
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={ () => getFiles()}
         >
           Learn React
         </Button>
+        <img src={`data:image/jpeg;base64, $file.thumbnail`} />
       </header>
     </div>
   );
