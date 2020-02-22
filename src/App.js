@@ -1,27 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Button from 'react-bootstrap/Button';
+import { Button, Image } from 'react-bootstrap';
 import { getFiles } from './files';
-
+import * as Images from './images';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button
-          className="App-link"
+    <div className="app">
+        <Image src={ Images.randomElement } alt='' className="quote" />
+         <Button
+          className='start-button'
+          size="lg" 
+          block
           onClick={ () => getFiles()}
         >
-          Learn React
+          Start
         </Button>
-        <img src={`data:image/jpeg;base64, $file.thumbnail`} />
-      </header>
+         {/* <img src={`data:image/jpeg;base64, $getFiles.entries[0].thumbnail`} /> */}
     </div>
   );
 }
