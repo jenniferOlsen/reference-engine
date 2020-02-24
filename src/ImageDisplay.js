@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Button from 'react-bootstrap/Button';
-import { getFiles } from './files';
-
-const images = [
-  '//placekitten.com/1500/500',
-  '//placekitten.com/4000/3000',
-  '//placekitten.com/800/1200',
-  '//placekitten.com/1500/1500',
-];
+import { getFiles, files } from './files';
 
 export default class ImageDisplay extends Component {
   constructor(props) {
@@ -21,14 +14,17 @@ export default class ImageDisplay extends Component {
     };
   }
 
-  getImages = () => {
-    getFiles()
+  displayImages = () => {
     this.setState({ isOpen: true })
 }
 
+  componentDidMount = () => {
+    getFiles()
+  }
 
   render() {
     const { photoIndex, isOpen } = this.state;
+    const base64 = 'data:image/jpeg;base64,'
 
     return (
       <div>
@@ -36,26 +32,25 @@ export default class ImageDisplay extends Component {
           className='start-button'
           size="lg" 
           block
-          onClick={() => this.getImages()}
+          onClick={() => this.displayImages()}
         >
           Start
         </Button>
-         {/* <img src={`data:image/jpeg;base64, $getFiles.entries[0].thumbnail`} /> */}
-
-        {isOpen && (
+    
+        {files.length > 0 && isOpen && (
           <Lightbox
-            mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            mainSrc={base64+files[photoIndex].thumbnail}
+            nextSrc={base64+files[(photoIndex + 1) % files.length].thumbnail}
+            prevSrc={base64+files[(photoIndex + files.length - 1) % files.length].thumbnail}
             onCloseRequest={() => this.setState({ isOpen: false })}
             onMovePrevRequest={() =>
               this.setState({
-                photoIndex: (photoIndex + images.length - 1) % images.length,
+                photoIndex: (photoIndex + files.length - 1) % files.length,
               })
             }
             onMoveNextRequest={() =>
               this.setState({
-                photoIndex: (photoIndex + 1) % images.length,
+                photoIndex: (photoIndex + 1) % files.length,
               })
             }
           />

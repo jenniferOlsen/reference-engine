@@ -7,8 +7,15 @@ const dbx = new Dropbox({
   fetch  
 });
 
+// Helper function to filter returned array 
+// Checks for any text properties (in this case, 'success')
+function filterByValue(array, string) {
+  return array.filter(item =>
+    Object.keys(item).some(text => String(item[text]).includes(string)));
+}
+
+export let files = [];
 export const getFiles = () => { 
-  let files = [];
     dbx.filesListFolder({  
     path: '',
     recursive: true,
@@ -24,9 +31,9 @@ export const getFiles = () => {
             }
         })
       }).then(response => {
-        console.log(response)
-        return files = response.entries;
-        })
+        let data = response.entries;
+        return files = filterByValue(data, 'success')
+      })
   })
 }
 
