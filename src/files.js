@@ -1,4 +1,5 @@
 import { Dropbox } from 'dropbox';
+import { filterByValue } from './utlis';
 
 const accessToken = process.env.REACT_APP_DROPBOX_TOKEN;
 
@@ -7,14 +8,18 @@ const dbx = new Dropbox({
   fetch  
 });
 
-// Helper function to filter returned array 
-// Checks for any text properties (in this case, 'success')
-function filterByValue(array, string) {
-  return array.filter(item =>
-    Object.keys(item).some(text => String(item[text]).includes(string)));
+export let files = [];
+export let categories = [];
+
+export const getCategories = async () => {
+    await dbx.filesListFolder({
+    path: '',
+    recursive: false,
+  }).then(response => {
+    return categories = filterByValue(response.entries, 'folder')
+  })
 }
 
-export let files = [];
 export const getFiles = async () => { 
    const filesData = await dbx.filesListFolder({  
       path: '',
@@ -56,6 +61,3 @@ const getMoreFiles = async (cursor, callback) => {
       await getMoreFiles(response.cursor, callback)  
     }  
 }
-  
-
-

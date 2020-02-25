@@ -3,6 +3,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Button from 'react-bootstrap/Button';
 import { getFiles, files } from './files';
+import { shuffle } from './utlis';
 
 export default class ImageDisplay extends Component {
   constructor(props) {
@@ -15,40 +16,13 @@ export default class ImageDisplay extends Component {
     };
   }
 
-  /**
-   * Randomly shuffle an array
-   * https://stackoverflow.com/a/2450976/1293256
-   * @param  {Array} array The array to shuffle
-   * @return {String}      The first item in the shuffled array
-   */
-
-    shuffle = (array) => {
-      let currentIndex = array.length;
-      let temporaryValue, randomIndex;
-
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-	return array;
-
-};
-
   shuffleFiles = () => {
     let images = []
     let length = files.length - 1;
     let index = [...Array(length).keys()]
     let keys = Object.keys(files);
 
-    this.shuffle(index)
+    shuffle(index)
     keys.sort(function(a,b) {return Math.random() - 0.5;});
     keys.forEach(function(k) {images.push(files[k]);});
     this.setState({ images: images }) 
@@ -66,7 +40,6 @@ export default class ImageDisplay extends Component {
   render() {
     const { photoIndex, isOpen, images } = this.state;
     const base64 = 'data:image/jpeg;base64,'
-    console.log(images)
     return (
       <div>
         <Button
