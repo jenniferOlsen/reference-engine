@@ -1,33 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Image from 'react-bootstrap/Image';
-import * as Images from './images';
+import Form from 'react-bootstrap/Form';
+import * as Quote from './quotes';
 import ImageDisplay from './ImageDisplay';
 import { getCategories, categories } from './files';
+import GoogleFontLoader from 'react-google-font-loader';
 
 function App() {
-
-  const [options, setCategories] = useState([categories])
   // only run useEffect once
   const [user] = useState(0) 
+  const [options, setCategories] = useState([categories])
+  const [selectedOptions, selectOptions] = useState([])
 
+  function handleCheck(option) {
+    selectOptions(selectedOptions.concat(option))
+  }
+ 
   useEffect( () => {
       getCategories().then(()=> {
         setCategories(categories)
       })
   }, [user])
   
-  console.log(options[0].name)
   return (
     <div className="app">
-        <Image src={ Images.randomElement } alt='' className="quote" />
-        { 
-          options.length > 1 ? 
-          <div>categories</div> :
-          <div>no categories </div>
-        }
-        <ImageDisplay />
+      <GoogleFontLoader 
+        fonts={[
+            {
+              font: 'Merienda',
+              weights: [400, 700],
+            },
+          ]}
+      />
+      <h1 className="quote">{ Quote.randomElement }</h1>
+      {console.log(selectedOptions)}
+      { 
+        options.length > 1 ? 
+        (
+          <Form className='category-form'>
+            {options.map(option => (
+              <div key={option.name} className="mb-3">
+                <Form.Check 
+                  type='checkbox'
+                  id={option.name}
+                  label={option.name}
+                  onChange={()=> {handleCheck(option.name)}}
+                />
+              </div>
+            ))}
+          </Form>
+        ) :
+        <div>No categories available</div>
+      }
+      <ImageDisplay categories={selectedOptions} />
     </div>
   );
 }

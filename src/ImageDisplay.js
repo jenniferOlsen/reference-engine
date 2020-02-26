@@ -29,19 +29,23 @@ export default class ImageDisplay extends Component {
   }
 
   displayImages = () => {
+    // console.log(this.props.categories)
+    // getFiles([])
     this.shuffleFiles()
     this.setState({ isOpen: true })
   }
 
   componentDidMount = () => {
-    getFiles()
+    getFiles(this.props.categories)
   }
 
   render() {
     const { photoIndex, isOpen, images } = this.state;
     const base64 = 'data:image/jpeg;base64,'
+    console.log(this.props.categories)
+
     return (
-      <div>
+      <>
         <Button
           className='start-button'
           size="lg" 
@@ -51,7 +55,7 @@ export default class ImageDisplay extends Component {
           Start
         </Button>
     
-        {images.length > 0 && isOpen && (
+        {images && images.length > 0 && isOpen && (
           <Lightbox
             mainSrc={base64+images[photoIndex].thumbnail}
             nextSrc={base64+images[(photoIndex + 1) % images.length].thumbnail}
@@ -69,7 +73,7 @@ export default class ImageDisplay extends Component {
             }
           />
         )}
-      </div>
+      </>
     );
   }
 }

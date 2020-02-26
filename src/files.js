@@ -20,8 +20,16 @@ export const getCategories = async () => {
   })
 }
 
-export const getFiles = async () => { 
-   const filesData = await dbx.filesListFolder({  
+export const getFiles = async (path) => { 
+  console.log(path)
+  if (path.length < 1) {
+    path = ''
+  } else {
+    let x = path.pop()
+    path={x}
+  }
+
+  const filesData = await dbx.filesListFolder({  
       path: '',
       recursive: true,
       include_non_downloadable_files: false,  

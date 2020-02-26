@@ -5,16 +5,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 10px 20px;
 }
 
 .quote {
-  max-height: 80vh;
+  margin: 1em;
+  font-family: 'Merienda', serif;
+  font-weight: 700;
+}
+
+.category-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: flex-start;
+  column-gap: 3em;
+  margin-top: 1em;
+}
+
+.form-check-input {
+  margin-top: .5em;
 }
 
 .start-button {
-  margin: 1rem;
   max-width: 90%;
+  margin-top: 3em;
 }
