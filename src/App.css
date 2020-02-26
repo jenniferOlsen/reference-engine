@@ -15,6 +15,7 @@
   margin: 1em;
   font-family: 'Merienda', serif;
   font-weight: 700;
+  max-width: 30em;
 }
 
 .category-form {
@@ -30,6 +31,6 @@
 }
 
 .start-button {
-  max-width: 90%;
+  max-width: 45em;
   margin-top: 3em;
 }
