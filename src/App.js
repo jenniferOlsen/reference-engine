@@ -13,7 +13,7 @@ function App() {
   const [options, setCategories] = useState([categories])
   const [selectedOptions, selectOptions] = useState([])
 
-  function handleCheck(option) {
+  const handleCheck = (option) => {
     selectOptions(selectedOptions.concat(option))
   }
  

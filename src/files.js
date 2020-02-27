@@ -21,16 +21,15 @@ export const getCategories = async () => {
 }
 
 export const getFiles = async (path) => { 
-  console.log(path)
-  // if (!path || path.length < 1) {
-  //   path = ''
-  // } else {
-  //   let x = path.pop()
-  //   path={x}
-  // }
-
+  if (!path || path.length < 1) {
+    return
+  } if (path.length > 0) {
+    let cat = path.pop()
+    path = `/${cat}`
+  }
+console.log(path)
   const filesData = await dbx.filesListFolder({  
-      path: '',
+      path: path,
       recursive: true,
       include_non_downloadable_files: false,  
       limit: 25 // thumbnail batch limit imposed by api
