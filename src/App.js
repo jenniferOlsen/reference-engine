@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Form from 'react-bootstrap/Form';
 import * as Quote from './quotes';
-import ImageDisplay from './ImageDisplay';
+import GetImages from './GetImages';
 import { getCategories, categories } from './files';
 import GoogleFontLoader from 'react-google-font-loader';
 
@@ -53,7 +53,7 @@ function App() {
         ) :
         <div>No categories available</div>
       }
-      <ImageDisplay categories={selectedOptions} />
+      <GetImages categories={selectedOptions} />
     </div>
   );
 }

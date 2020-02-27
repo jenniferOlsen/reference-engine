@@ -22,12 +22,12 @@ export const getCategories = async () => {
 
 export const getFiles = async (path) => { 
   console.log(path)
-  if (path.length < 1) {
-    path = ''
-  } else {
-    let x = path.pop()
-    path={x}
-  }
+  // if (!path || path.length < 1) {
+  //   path = ''
+  // } else {
+  //   let x = path.pop()
+  //   path={x}
+  // }
 
   const filesData = await dbx.filesListFolder({  
       path: '',
