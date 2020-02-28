@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './App.scss';
 import Form from 'react-bootstrap/Form';
 import * as Quote from './quotes';
 import GetImages from './GetImages';
@@ -45,6 +44,7 @@ function App() {
                   type='checkbox'
                   id={option.name}
                   label={option.name}
+                  custom={true}
                   onChange={()=> {handleCheck(option.name)}}
                 />
               </div>
