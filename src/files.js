@@ -23,9 +23,15 @@ export const getCategories = async () => {
 export const getFiles = async (path) => { 
   if (!path || path.length < 1) {
     return
-  } if (path.length > 0) {
+  } 
+  if (path.length > 0) {
     let cat = path.pop()
-    path = `/${cat}`
+    
+    if ( cat === 'all') {
+      path = ''
+    } else {
+        path = `/${cat}`
+    }
   }
 console.log(path)
   const filesData = await dbx.filesListFolder({  

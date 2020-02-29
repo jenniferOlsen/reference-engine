@@ -15,6 +15,10 @@ function App() {
   const handleCheck = (option) => {
     selectOptions(selectedOptions.concat(option))
   }
+
+  const selectAllOptions = () => {
+    selectOptions(['all'])
+  }
  
   useEffect( () => {
       getCategories().then(()=> {
@@ -45,10 +49,18 @@ function App() {
                   id={option.name}
                   label={option.name}
                   custom={true}
-                  onChange={()=> {handleCheck(option.name)}}
+                  checked={selectedOptions.includes(option.name) || selectedOptions.includes('all')}
+                  onChange={()=> { handleCheck(option.name) }}
                 />
               </div>
             ))}
+             <Form.Check 
+                  type='checkbox'
+                  id='all'
+                  label='all'
+                  custom={true}
+                  onChange={()=> {selectAllOptions()}}
+                />
           </Form>
         ) :
         <div>No categories available</div>
