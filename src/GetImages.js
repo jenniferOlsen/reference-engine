@@ -5,13 +5,14 @@ import { shuffle } from './utlis';
 import DisplayImages from './DisplayImages';
 
 function GetImages({categories}) {
-  useEffect(() => {
-    // Do api call on mount  
-     getFiles(categories)
-  }, [categories]);
 
   const [images, setImages] = useState([])
   const [showImages, setShowImages] = useState(false)
+
+  useEffect(() => {
+    // Do api call on mount  
+    getFiles(categories)
+  }, [categories]);
 
   const shuffleFiles = () => {
     let images = []
@@ -27,11 +28,19 @@ function GetImages({categories}) {
   }
 
   const displayImages = () => {
-    shuffleFiles() 
+    // wait for files to return
+    if (files.length > 0) {
+       shuffleFiles() 
+    } else {
+      setTimeout( () => {
+        shuffleFiles()
+      }, 2000)
+    }
   }
 
   const onClose = () => {
     setShowImages(false)
+    setImages([])
   }
  
   return (
