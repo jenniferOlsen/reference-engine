@@ -7,17 +7,22 @@ import { getCategories, categories } from './files';
 import GoogleFontLoader from 'react-google-font-loader';
 
 function App() {
-  // only run useEffect once
-  const [user] = useState(0) 
+  const [user] = useState(0) // only run useEffect once
   const [options, setCategories] = useState([categories])
-  const [selectedOptions, selectOptions] = useState([])
+  const [checked, setChecked] = useState([])
 
-  const handleCheck = (option) => {
-    selectOptions(selectedOptions.concat(option))
+  const handleChange = (event) => {
+    let option = event.target.id
+
+    if (event.target.checked) {
+      setChecked(checked.concat(option))
+    } else {
+      setChecked(checked.filter(item => item !== option))    
+    }
   }
 
   const selectAllOptions = () => {
-    selectOptions(['all'])
+    setChecked(['all'])
   }
  
   useEffect( () => {
@@ -37,7 +42,7 @@ function App() {
           ]}
       />
       <h1 className="quote">{ Quote.randomElement }</h1>
-      {console.log(selectedOptions)}
+      
       { 
         options.length > 1 ? 
         (
@@ -49,8 +54,7 @@ function App() {
                   id={option.name}
                   label={option.name}
                   custom={true}
-                  checked={selectedOptions.includes(option.name) || selectedOptions.includes('all')}
-                  onChange={()=> { handleCheck(option.name) }}
+                  onChange={(event) => {handleChange(event)}}
                 />
               </div>
             ))}
@@ -65,7 +69,7 @@ function App() {
         ) :
         <div>No categories available</div>
       }
-      <GetImages categories={selectedOptions} />
+      <GetImages options={checked} />
     </div>
   );
 }

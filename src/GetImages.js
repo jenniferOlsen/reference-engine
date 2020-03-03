@@ -1,18 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import { getFiles, files } from './files';
 import { shuffle } from './utlis';
 import DisplayImages from './DisplayImages';
 
-function GetImages({categories}) {
+function GetImages({options}) {
 
   const [images, setImages] = useState([])
   const [showImages, setShowImages] = useState(false)
-
-  useEffect(() => {
-    // Do api call on mount  
-    getFiles(categories)
-  }, [categories]);
 
   const shuffleFiles = () => {
     let images = []
@@ -28,19 +23,22 @@ function GetImages({categories}) {
   }
 
   const displayImages = () => {
-    // wait for files to return
-    if (files.length > 0) {
-       shuffleFiles() 
-    } else {
-      setTimeout( () => {
-        shuffleFiles()
-      }, 2000)
-    }
+    getFiles(options).then( () => {
+
+      // wait for files to return
+      if (files.length > 0) {
+        shuffleFiles() 
+      } else {
+        setTimeout( () => {
+          shuffleFiles()
+        }, 2000)
+      }
+    })   
   }
 
   const onClose = () => {
-    setShowImages(false)
-    setImages([])
+    // just clear everything
+    window.location.reload()
   }
  
   return (
