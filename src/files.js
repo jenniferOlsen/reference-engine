@@ -22,20 +22,15 @@ export const getCategories = async () => {
 
 export const getFiles = async (path) => { 
   if (!path || path.length < 1) {
-    return
-  } 
-  if (path.length > 0) {
-    path.forEach(item => {
+    path = ''
+    filesData(path)
+  } else {
+     path.forEach(item => {
       let cat = item
-      if ( cat === 'all') {
-        path = ''
-        filesData(path)
-      } else {
-          path = `/${cat}`
-          filesData(path)
-      }
+      path = `/${cat}`
+      filesData(path)
     })
-  } 
+  }
 }
 
 const filesData = async(path) => {

@@ -8,30 +8,34 @@ function GetImages({options}) {
 
   const [images, setImages] = useState([])
   const [showImages, setShowImages] = useState(false)
+  const [noImagesMsg, showNoImagesMsg] = useState(false)
 
   const shuffleFiles = () => {
-    let images = []
-    let index = [...Array(files.length).keys()]
-    let keys = Object.keys(files);
+    if (files.length > 0) {
+      let images = []
+      let index = [...Array(files.length).keys()]
+      let keys = Object.keys(files);
 
-    shuffle(index)
-    keys.sort(function() {return Math.random() - 0.5;});
-    keys.forEach(function(k) {images.push(files[k]);});
+      shuffle(index)
+      keys.sort(function() {return Math.random() - 0.5;});
+      keys.forEach(function(k) {images.push(files[k]);});
 
-    setImages(images) 
-    setShowImages(true)
+      setImages(images) 
+      setShowImages(true)
+    } else {
+      showNoImagesMsg(true)
+    }  
   }
 
   const displayImages = () => {
     getFiles(options).then( () => {
-
       // wait for files to return
       if (files.length > 0) {
         shuffleFiles() 
       } else {
         setTimeout( () => {
           shuffleFiles()
-        }, 2000)
+        }, 3000)
       }
     })   
   }
@@ -42,7 +46,10 @@ function GetImages({options}) {
   }
  
   return (
-    <>
+   <>
+    {noImagesMsg && (
+      <div>No Images Available</div>
+    )}
     <Button
         className='start-button'
         size="lg" 
@@ -54,7 +61,8 @@ function GetImages({options}) {
     {images && images.length > 0 && showImages && (
       <DisplayImages images={images} onClose={() => onClose()} />
     )}
-</>
+
+  </>
   )
 }
 

@@ -20,10 +20,6 @@ function App() {
       setChecked(checked.filter(item => item !== option))    
     }
   }
-
-  const selectAllOptions = () => {
-    setChecked(['all'])
-  }
  
   useEffect( () => {
       getCategories().then(()=> {
@@ -58,16 +54,8 @@ function App() {
                 />
               </div>
             ))}
-             <Form.Check 
-                  type='checkbox'
-                  id='all'
-                  label='all'
-                  custom={true}
-                  onChange={()=> {selectAllOptions()}}
-                />
           </Form>
-        ) :
-        <div>No categories available</div>
+        ) : null       
       }
       <GetImages options={checked} />
     </div>
