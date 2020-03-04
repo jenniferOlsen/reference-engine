@@ -3,6 +3,7 @@ import './App.scss';
 import Form from 'react-bootstrap/Form';
 import * as Quote from './quotes';
 import GetImages from './GetImages';
+import HelpModal from './HelpModal';
 import { getCategories, categories } from './files';
 import GoogleFontLoader from 'react-google-font-loader';
 
@@ -37,6 +38,8 @@ function App() {
             },
           ]}
       />
+
+      <HelpModal />
       <h1 className="quote">{ Quote.randomElement }</h1>
       
       { 

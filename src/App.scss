@@ -18,6 +18,14 @@ $primary: #76C2AF;
   padding: 10px 20px;
 }
 
+.help-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 20px 50px 0 0;
+}
+
 .quote {
   margin: 1em;
   font-family: 'Merienda', serif;
