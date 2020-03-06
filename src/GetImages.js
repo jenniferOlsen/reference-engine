@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import { getFiles, files } from './files';
+import { startButtonText, authlink } from './auth';
 import { shuffle } from './utlis';
 import DisplayImages from './DisplayImages';
 
@@ -11,6 +12,15 @@ function GetImages({options}) {
   const [showImages, setShowImages] = useState(false)
   const [noImagesMsg, showNoImagesMsg] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [connected, getConnection] = useState()
+
+  useEffect( () => {
+     if (startButtonText === 'Connect to Dropbox') {
+      getConnection(false)
+    } else {
+      getConnection(true)
+    }
+  }, [connected])
 
   const shuffleFiles = () => {
     if (files.length > 0) {
@@ -45,6 +55,10 @@ function GetImages({options}) {
     })   
   }
 
+  const redirectToAuth = () => {
+    window.location = authlink
+  }
+
   const onClose = () => {
     // just clear everything
     window.location.reload()
@@ -59,9 +73,9 @@ function GetImages({options}) {
         className='start-button'
         size="lg" 
         block
-        onClick={() => displayImages()}
+        onClick={connected ? () => displayImages() : () => redirectToAuth()}
       >
-        Start
+        {startButtonText}
         {loading && (
           <Spinner
             as="span"

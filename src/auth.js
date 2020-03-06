@@ -9,6 +9,7 @@ const dbx = new Dropbox({
 });
 
 export let authlink = dbx.getAuthenticationUrl('http://localhost:3000/auth');
+export let startButtonText = 'Start'
 
 // Parses the url and gets the access token if it is in the urls hash
 export const getAccessTokenFromUrl = () => {
@@ -21,8 +22,6 @@ function isAuthenticated() {
   return !!getAccessTokenFromUrl();
 }
 
-if (isAuthenticated()) {
-  console.log('already authed')
-} else {
-  console.log('need auth') 
+if (!isAuthenticated()) {
+  startButtonText = 'Connect to Dropbox'
 }
