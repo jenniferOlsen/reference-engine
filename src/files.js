@@ -1,10 +1,11 @@
 import { Dropbox } from 'dropbox';
+import { getAccessTokenFromUrl } from './auth';
 import { filterByValue } from './utlis';
 
-const accessToken = process.env.REACT_APP_DROPBOX_TOKEN;
+const accessToken = getAccessTokenFromUrl();
 
 const dbx = new Dropbox({  
-  accessToken,  
+  accessToken,
   fetch  
 });
 
