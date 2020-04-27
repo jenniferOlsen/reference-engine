@@ -41,6 +41,7 @@ const filesData = async(path) => {
     include_non_downloadable_files: false,  
     limit: 20 // thumbnail batch limit imposed by api
   }).then( (response) => {
+    console.log(response)
     processFiles(response.entries)
     if (response.has_more) {
       getMoreFiles(response.cursor, more => processFiles(more.entries))
@@ -49,6 +50,7 @@ const filesData = async(path) => {
 }
 
 const processFiles = async(response) => {
+  console.log('test')
   dbx.filesGetThumbnailBatch(
   {    
     entries: response.map(function(entry){
