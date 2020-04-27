@@ -39,7 +39,7 @@ const filesData = async(path) => {
     path: path,
     recursive: true,
     include_non_downloadable_files: false,  
-    limit: 25 // thumbnail batch limit imposed by api
+    limit: 24 // thumbnail batch limit imposed by api
   }).then( (response) => {
     processFiles(response.entries)
     if (response.has_more) {
